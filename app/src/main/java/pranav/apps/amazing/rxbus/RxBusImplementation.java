@@ -37,4 +37,5 @@ public class RxBusImplementation extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+    public static class TapEvent {}
 }

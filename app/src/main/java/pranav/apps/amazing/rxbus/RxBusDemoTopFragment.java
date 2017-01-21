@@ -9,12 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Pranav Gupta on 1/21/2017.
  */
 
 public class RxBusDemoTopFragment extends Fragment {
+
+    private RxBus rxBus;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,4 +26,18 @@ public class RxBusDemoTopFragment extends Fragment {
         ButterKnife.bind(this,view);
         return view;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        rxBus = ((MainActivity)getActivity()).getRxBusSingleton();
+    }
+
+    @OnClick(R.id.btn_demo_rxbus_tap)
+    void OnTapEvent(){
+        if(rxBus.hasObservers()){
+            rxBus.send(new RxBusImplementation.TapEvent());
+        }
+    }
+
 }
