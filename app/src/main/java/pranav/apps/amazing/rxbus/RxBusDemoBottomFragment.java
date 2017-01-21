@@ -57,12 +57,15 @@ public class RxBusDemoBottomFragment extends Fragment{
     public void onStart() {
         super.onStart();
         _disposables = new CompositeDisposable();
-
+        // this below declaration of tapEventEmitter makes it an observable which can be used to listen to bus events
+        // and it can be converted to other flowables by applying operators
         ConnectableFlowable<Object> tapEventEmitter = _rxBus.asFlowable().publish();
         /** Our RxBus is emitting events in form of TapEvent(extends Object) and then here there are two disposables which are
          * listening to those events and subscribed to same rxbus
          * One of then logs each time an event is received
          * while the other buffers the value over 1 sec and then emit the result
+         * When we subscribe to the bus as a flowable that means we want to listen the events posted in the bus i.e we have an
+         * observable to the bus events
          *
          * */
 
@@ -81,6 +84,19 @@ public class RxBusDemoBottomFragment extends Fragment{
         }));
         /** publish() takes an flowable and buffers the value over given time window and then passes flow to method inside subscribe
          *
+         * */
+
+        /** one simple way of implementation
+         * firstly debounce (select last values in a particular time window of 1 sec)
+         Flowable<Object> debouncedEmitter = tapEventEmitter.debounce(1, TimeUnit.SECONDS);
+         buffer those debounced emitted item over 1 sec
+         Flowable<List<Object>> debouncedBufferEmitter = tapEventEmitter.buffer(debouncedEmitter);
+
+         _disposables.add(debouncedBufferEmitter
+         .observeOn(AndroidSchedulers.mainThread())
+         .subscribe(taps -> {
+         _showTapCount(taps.size());
+         }));
          * */
         _disposables.add(tapEventEmitter.publish(new Function<Flowable<Object>, Flowable<List<Object>> >() {
             @Override
