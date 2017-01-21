@@ -48,6 +48,10 @@ public class RxBusDemoBottomFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         _rxBus = ((MainActivity)getActivity()).getRxBusSingleton();
     }
+    /** using composite disposables we can group observables and then apply some operator directly
+     * connectable flowable means this flowable will only emit events when .connect() is made
+     *
+     * */
 
     @Override
     public void onStart() {
@@ -55,6 +59,18 @@ public class RxBusDemoBottomFragment extends Fragment{
         _disposables = new CompositeDisposable();
 
         ConnectableFlowable<Object> tapEventEmitter = _rxBus.asFlowable().publish();
+        /** Our RxBus is emitting events in form of TapEvent(extends Object) and then here there are two disposables which are
+         * listening to those events and subscribed to same rxbus
+         * One of then logs each time an event is received
+         * while the other buffers the value over 1 sec and then emit the result
+         *
+         * */
+
+
+        /**Parameters for subscribe operator:
+         onNext - the Consumer<T> you have designed to accept emissions from the Publisher
+         As relay was of <Object,Object> so it emits objects and here we just log something on each received item
+         * */
         _disposables.add(tapEventEmitter.subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object event) throws Exception {
@@ -63,6 +79,9 @@ public class RxBusDemoBottomFragment extends Fragment{
                 }
             }
         }));
+        /** publish() takes an flowable and buffers the value over given time window and then passes flow to method inside subscribe
+         *
+         * */
         _disposables.add(tapEventEmitter.publish(new Function<Flowable<Object>, Flowable<List<Object>> >() {
             @Override
             public Flowable<List<Object>> apply(Flowable<Object> objectFlowable) throws Exception {
