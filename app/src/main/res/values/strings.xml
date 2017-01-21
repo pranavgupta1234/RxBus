@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">RxBus</string>
+    <string name="msg_demo_rxbus_1">Tap on the below button and RxBus will listen to the events</string>
+    <string name="doc">
+        “RxBus” is not going to be a library. Implementing an event bus with RxJava is so ridiculously easy that it doesn’t warrant the bloat of an independent library.
+\nPart 1: What is an event bus?\n
+
+Let’s talk about two concepts that seem similar: the Observer pattern and the Pub-sub pattern.\n
+Observer pattern\n
+
+This is a pattern of development in which your class or primary object (known as the Observable) notifies other interested classes or objects (known as Observers) with relevant information (events).
+\nPub-sub pattern\n
+
+The objective of the pub-sub pattern is exactly the same as the Observer pattern viz. you want some other class to know of certain events taking place.
+
+\nThere’s an important semantic difference between the Observer and Pub-sub patterns though: in the pub-sub pattern the focus is on “broadcasting” messages outside. The Observable here doesn’t want to know who the events are going out to, just that they’ve gone out. In other words the Observable (a.k.a Publisher) doesn’t want to know who the Observers (a.k.a Subscribers) are.\n
+\nWhy the anonymity?
+
+\nIt allows for this thing called “decoupling”, which is a good word in computer programming. You want to keep coupling as low as possible in your design.
+
+\nTypically, you would expect the publisher to have direct knowledge of each of the many subscribers that it needs to notify, so it can go about notifying each of them, once the “event” or message is ready. But with an event bus, the publisher is relieved of such duties and this independence helps, because the publisher and subscriber need not have logic coded in them that establish the dependencies between the two.
+
+\nIn other words “consciously decouple” your code whenever you can*.
+How the anonymity?
+
+\nOk, so a natural question with the pub-sub pattern is: how do you actually achieve that anonymity between publisher and subscriber? An easy way is to just get hold of a middleman and let that middleman take care of all the communication. An event bus is one such middleman.
+
+\nThat’s it. An event bus is as simple as that.
+
+\nTwo event bus libraries that are commonly used in Android are Otto and Green Robot’s EventBus. There are plenty of posts online that explain how to implement them in your app.
+\nIn the example we post events from the top fragment (green part) and listen in (through the bus) from the bottom fragment (blue part).
+    </string>
 </resources>
