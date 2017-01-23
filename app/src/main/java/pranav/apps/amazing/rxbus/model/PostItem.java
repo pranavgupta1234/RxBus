@@ -7,6 +7,11 @@ public class PostItem {
     private String name;
     private int totalView;
 
+    public PostItem(String name,int totalView){
+        this.name = name;
+        this.totalView = totalView;
+    }
+
     public String getName() {
         return name;
     }

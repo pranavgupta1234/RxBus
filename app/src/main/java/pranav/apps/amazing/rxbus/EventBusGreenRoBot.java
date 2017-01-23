@@ -6,9 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
-import de.greenrobot.event.EventBus;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import pranav.apps.amazing.rxbus.model.PostItem;
 
 /**
  * Created by Pranav Gupta on 1/23/2017.
@@ -20,17 +27,23 @@ public class EventBusGreenRoBot extends Fragment{
 
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_eventbus,container,false);
+        ButterKnife.bind(this,view);
         return view;
     }
-
+    @OnClick(R.id.post)
+    void PostEvent(){
+        _bus.post(new PostItem("Pranav",150));
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         _bus = EventBus.getDefault();
+        _bus.register(this);
 
          getActivity().getSupportFragmentManager()
                  .beginTransaction()
@@ -48,6 +61,11 @@ public class EventBusGreenRoBot extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        ButterKnife.unbind(this);
+
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    void onEvent(PostItem postItem){
 
     }
 }
