@@ -110,6 +110,8 @@ public class RxBusDemoBottomFragment extends Fragment{
                     }
                 })
         );
+        /** here consumer works same as that of Action1 in case of an observer i.e a consumer is analogous to observer
+         * */
         _disposables.add(tapEventEmitter.connect());
 
     }
