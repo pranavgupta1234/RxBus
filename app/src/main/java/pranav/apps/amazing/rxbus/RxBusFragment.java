@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,6 +28,10 @@ public class RxBusFragment extends Fragment{
     @OnClick(R.id.tap)
     void RxBusExample(){
         clickedOn(new RxBusImplementation());
+    }
+    @OnClick(R.id.eventbus)
+    void EventBusByGreenRobot() {
+        clickedOn(new EventBusGreenRoBot());
     }
 
     @Override

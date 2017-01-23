@@ -17,5 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/tap"/>
+        <Button
+            android:text="EventBus(GREENROBOT) Example"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventbus"
+            android:layout_gravity="center" />
     </LinearLayout>
 </ScrollView>
