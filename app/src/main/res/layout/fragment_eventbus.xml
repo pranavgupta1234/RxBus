@@ -7,6 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/post"/>
+    <TextView
+        android:text="Here are three different fragments and after button click message is sent to all of them\n
+        Also using this eventbus, data can be sent to other activities and when one opens than then data can be seen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
