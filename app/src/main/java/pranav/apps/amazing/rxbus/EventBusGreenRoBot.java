@@ -31,6 +31,13 @@ public class EventBusGreenRoBot extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         _bus = EventBus.getDefault();
+
+         getActivity().getSupportFragmentManager()
+                 .beginTransaction()
+                 .replace(R.id.top,new EventBusTopFragment())
+                 .replace(R.id.bottom1,new EventBusBottomFragment1())
+                 .replace(R.id.bottom2,new EventBusBottomFragment2())
+                 .commit();
     }
 
     @Override
