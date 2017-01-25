@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 public class MainActivity extends FragmentActivity {
     private RxBus _rxBus= null;
-
+    /** this activity is used for the launching purposes and as the saved instance state is null initially so the transaction occur
+     * and er start a new fragment for our working and we can move to any fragment from there for further proceeding
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
